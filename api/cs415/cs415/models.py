@@ -1,93 +1,30 @@
-from os import name
-from django.db import models 
-class Categories(models.Model):
-    category = models.CharField(primary_key=True, max_length=255)
-    category_description = models.CharField(max_length=255)
+from django.db import models
+
+class Pagedata(models.Model):
+    page_data_id = models.AutoField(primary_key=True)
+    page_name = models.CharField(max_length=25)
+    page_title = models.CharField(max_length=25)
+    page_description = models.CharField(max_length=150)
+    page_picture = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'Categories'
-    def __str__(self):
-        return f'{self.category}'
+        db_table = 'PageData'
 
-class Items(models.Model):
-    item_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    item_name = models.CharField(max_length=255)
-    item_price = models.IntegerField()
-    item_description = models.CharField(max_length=255)
-    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category')
-    availability = models.CharField(max_length=255)
+    def __str__(self):
+        return f'{self.page_name}'
+
+
+class Phonetype(models.Model):
+    phone_type_id = models.AutoField(primary_key=True)
+    phone_type = models.CharField(max_length=10)
 
     class Meta:
         managed = False
-        db_table = 'Items'
+        db_table = 'PhoneType'
+
     def __str__(self):
-        return f'{self.item_name}'
-
-class Orders(models.Model):
-    order_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    item_id = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'Orders'
-    def __str__(self):
-        return f'{self.order_id}'
-
-class Payment(models.Model):
-    payment_id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Orders, models.DO_NOTHING)
-    paymentmethod = models.CharField(db_column='PaymentMethod', max_length=255)  # Field name made lowercase.
-    paymentdate = models.DateField(db_column='PaymentDate')  # Field name made lowercase.
-    paymentamount = models.IntegerField(db_column='PaymentAmount')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Payment'
-    def __str__(self):
-        return f'{self.payment_id}'
-
-class Profile(models.Model):
-    profile_id = models.AutoField(db_column='Profile_id', primary_key=True)  # Field name made lowercase.
-    user_id = models.IntegerField()
-    bio = models.CharField(db_column='Bio', max_length=255)  # Field name made lowercase.
-    profilepicture = models.CharField(db_column='ProfilePicture', max_length=255)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Profile'
-    def __str__(self):
-        return f'{self.profile_id}'
-
-class Reviews(models.Model):
-    review_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    item_id = models.IntegerField()
-    review = models.CharField(max_length=255)
-    rating = models.IntegerField()
-    date = models.DateField()
-    comment = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'Reviews'
-    def __str__(self):
-        return f'{self.review_id}'
-
-class Transactions(models.Model):
-    transaction_id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Orders, models.DO_NOTHING)
-    rentaldate = models.DateField(db_column='RentalDate')  # Field name made lowercase.
-    returndate = models.DateField(db_column='ReturnDate')  # Field name made lowercase.
-    totalprice = models.IntegerField(db_column='TotalPrice')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Transactions'
-    def __str__(self):
-        return f'{self.transaction_id}'
+        return f'{self.phone_type}'
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -101,6 +38,66 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'User'
+
+
     def __str__(self):
-    #return first name and last name
         return f'{self.firstname} {self.lastname}'
+
+class Addresstype(models.Model):
+    address_type_id = models.AutoField(primary_key=True)
+    address_type = models.CharField(max_length=10)
+
+    class Meta:
+        managed = False
+        db_table = 'AddressType'
+
+    def __str__(self):
+        return f'{self.address_type}'
+
+class Useraddress(models.Model):
+    user_address_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    address_1 = models.CharField(max_length=30, blank=True, null=True)
+    address_2 = models.CharField(max_length=30, blank=True, null=True)
+    city = models.CharField(max_length=25, blank=True, null=True)
+    st = models.CharField(max_length=2, blank=True, null=True)
+    zip = models.CharField(max_length=10, blank=True, null=True)
+    country = models.CharField(max_length=30, blank=True, null=True)
+    address_type = models.ForeignKey(Addresstype, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'UserAddress'
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name} - {self.address_1}'
+
+class Userinfo(models.Model):
+    user_info_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    profile_bio = models.CharField(max_length=500, blank=True, null=True)
+    profile_picture = models.CharField(max_length=100, blank=True, null=True)
+    modified_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'UserInfo'
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name} - {self.profile_bio}'
+
+class Userphone(models.Model):
+    user_phone_id = models.AutoField(primary_key=True)
+    phone_type = models.ForeignKey(Phonetype, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
+    created_date = models.DateTimeField(blank=True, null=True)
+    is_active = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'UserPhone'
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name} - {self.phone_type.phone_type}'

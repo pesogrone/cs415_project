@@ -2,7 +2,7 @@
 URL configuration for cs415 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -17,24 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from cs415 import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', views.Login.as_view()),
     path('users/', views.UserAPIView.as_view()),
-    # path('categories/', views.CategoriesAPIView.as_view()),
-    # path('items/', views.ItemsAPIView.as_view()),
-    # path('orders/', views.OrdersAPIView.as_view()),
-    # path('payment/', views.PaymentAPIView.as_view()),
-    # path('profile/', views.ProfileAPIView.as_view()),
-    # path('reviews/', views.ReviewsAPIView.as_view()),
-    # path('transactions/', views.TransactionsAPIView.as_view()),
-
-    path('users/user/<int:id>/', views.SingleUserAPIView.as_view()),
-    # path('categories/category/<int:id>/', views.SingleCategoryAPIView.as_view()),
-    # path('items/item/<int:id>/', views.SingleItemAPIView.as_view()),
-    # path('orders/order/<int:id>/', views.SingleOrderAPIView.as_view()),
-    # path('payment/payment/<int:id>/', views.SinglePaymentAPIView.as_view()),
-    # path('profile/profile/<int:id>/', views.SingleProfileAPIView.as_view()),
-    # path('reviews/review/<int:id>/', views.SingleReviewAPIView.as_view()),
-    # path('transactions/transaction/<int:id>/', views.SingleTransactionAPIView.as_view()),
-
+    path('addresses/', views.AddressAPIView.as_view()),
+    path('phones/', views.PhoneAPIView.as_view()),
+    path('phone-types/', views.PhoneTypeAPIView.as_view()),
+    path('address-types/', views.AddressTypeAPIView.as_view()),
+    path('user-infos/', views.UserInfoAPIView.as_view()),
+    path('pages/', views.PageDataAPIView.as_view()),
+    path('users/user/<int:id>', views.GetSingleUserAPIView.as_view()),
+    path('addresses/user/<int:id>', views.UserAddressAPIView.as_view()),
+    path('phones/user/<int:id>', views.UserPhoneAPIView.as_view()),
+    path('user-infos/user/<int:id>', views.GetSingleUserInfoAPIView.as_view()),
+    path('pages/page/<int:id>', views.GetSinglePageDataAPIView.as_view()),
 ]
