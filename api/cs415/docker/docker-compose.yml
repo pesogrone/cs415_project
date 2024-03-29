@@ -1,0 +1,9 @@
+version: '3.0'
+services:
+  cs415-api:
+    build: https://github.com/pesogrone/cs415_project.git#container:api/cs415
+    image: image_cs415-api
+    container_name: dc_cs415-api
+    restart: always
+    ports:
+      - "80:80"
