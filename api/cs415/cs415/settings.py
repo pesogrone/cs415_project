@@ -76,6 +76,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cs415.wsgi.application'
 
+CORS_ALLOWED_ALL_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1.8000",
+    "http://44.214.75.250"
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
