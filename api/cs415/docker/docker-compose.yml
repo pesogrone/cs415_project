@@ -6,4 +6,11 @@ services:
     container_name: dc_cs415-api
     restart: always
     ports:
+      - "8080:80"
+  cs415-website:
+    build: https://github.com/pesogrone/cs415_website.git#container
+    image: image_cs415-website
+    container_name: dc_cs415-website
+    restart: always
+    ports:
       - "80:80"
