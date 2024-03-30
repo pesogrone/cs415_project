@@ -16,8 +16,8 @@ services:
       - "80:80"
   cs415-database:
     build: https://github.com/pesogrone/cs415_project.git#container:database
-    image: image_cs415_database
-    container_name: dc_cs415_database
+    image: image_cs415-database
+    container_name: dc_cs415-database
     restart: always
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
