@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'cs415.wsgi.application'
 
 CORS_ALLOWED_ALL_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:8080",
     "http://localhost:8000",
     "http://127.0.0.1.8000",
     "http://44.214.75.250"
@@ -94,7 +95,8 @@ DATABASES = {
         'NAME': 'cs415website',
         'USER': 'apiuser',
         'PASSWORD': 'apiuserpass',
-        'HOST': '34.237.66.209',
+        # 'HOST': '34.237.66.209',
+        'HOST': 'cs415-database',
         'PORT': '3306'
 
     }
