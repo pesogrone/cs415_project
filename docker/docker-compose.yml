@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3"
 services:
   cs415-api-ec2db:
     build: https://github.com/pesogrone/cs415_project.git#container:api/cs415
