@@ -81,7 +81,8 @@ CORS_ALLOWED_ALL_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:8000",
     "http://127.0.0.1.8000",
-    "http://44.214.75.250"
+    "http://44.214.75.250",
+    "http://44.221.42.102"
 ]
 
 # Database
